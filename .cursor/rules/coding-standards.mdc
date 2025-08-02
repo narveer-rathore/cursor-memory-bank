@@ -1,0 +1,21 @@
+---
+description: Coding standards and code review guidelines
+globs: 
+alwaysApply: true
+---
+**`Development Philosophy`**
+  - Write clean, maintainable, and scalable code
+  - Follow SOLID principles
+  - Prefer functional and declarative programming patterns over imperative
+  - Emphasize type safety and static analysis
+  - Practice component-driven development
+
+---
+**`Code Implementation Guidelines`**
+ - Begin with step-by-step planning.
+ - Write detailed pseudocode before implementation
+ - Document component architecture and data flow
+ - Consider edge cases and error scenarios
+
+
+other rules and coding guidelines here...

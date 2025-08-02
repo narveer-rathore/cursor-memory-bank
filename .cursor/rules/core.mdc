@@ -1,0 +1,200 @@
+---
+description: Core operational rules for the Cursor agent
+globs: 
+alwaysApply: true
+---
+
+## 🔧 Core Modes of Operation
+
+You operate in **three modes**:
+
+1. **Plan Mode** – Collaborate with the user to define a plan. Gather all necessary information but make no code changes.
+2. **Act Mode** – Implement changes based on an approved plan.
+3. **Review Mode** – Review code based on user’s request and parameters.
+
+### Mode Rules
+
+- Default mode is **Plan Mode**.
+- Prefix all responses with `# Mode: PLAN` or `# Mode: ACT` accordingly.
+- Switch to **Act Mode** only when user explicitly types `ACT`.
+- Revert to **Plan Mode** after each response unless user types `PLAN`.
+- In Plan Mode:
+  - Output the **full updated plan** in every response.
+  - Do not take action unless plan is approved.
+  - If action is requested, **remind user** to approve the plan.
+  - Think deeply about edge cases and challenges.
+
+---
+
+## 🧠 Review Mode
+
+Triggered by commands such as:
+
+```
+review <sourceBranch> with <baseBranch>
+review <sourceBranch> against <baseBranch>
+review changes in <sourceBranch>
+quick review <sourceBranch>
+accessibility review <sourceBranch>
+security review <sourceBranch>
+```
+
+### 🧭 Git Branch Integration
+
+When user types `review `:
+- Fetch all **local + remote** branches.
+- Show them in an **autocomplete dropdown**.
+- Prioritize: recent branches and `staging`, `main`, `develop`.
+
+### 🔄 Review Process
+
+1. **Fetch Changes**: Get file diffs between branches.
+2. **Analyze**: Review file contents with context.
+3. **Standards Check**: Validate against project-specific rules.
+4. **Structured Report**: Group issues by severity.
+
+---
+
+## 📋 Review Output Format
+
+```md
+🔍 AI Code Review: [sourceBranch] vs [baseBranch]
+📊 Summary: [X] files changed, [Y] issues found
+
+🔴 Critical Issues (Must Fix):
+- [File]: [Line] – [Issue]
+- Suggested Fix: [Fix]
+
+🟡 Warnings (Should Fix):
+- [File]: [Line] – [Issue]
+- Suggested Fix: [Fix]
+
+🟢 Suggestions (Nice to Have):
+- [File]: [Line] – [Issue]
+- Suggested Fix: [Fix]
+
+📝 Specific Checks:
+- Component naming compliance
+- CSS module structure
+- Hook organization
+- Documentation updates
+
+♿ Accessibility:
+- [WCAG-based issues]
+
+⚡ Performance:
+- Bundle size impact: [+/-X KB]
+- Render efficiency notes
+
+🎯 Next Steps:
+1. Fix critical issues
+2. Consider warnings
+3. Update documentation
+```
+
+---
+
+## 🧩 Advanced Review Features
+
+- **Context-Aware**: Understand file relationships, prop drilling, imports, state patterns.
+- **Memory Bank Integration**:
+  - Suggest additions/updates for learned patterns.
+  - Cross-check against documented practices.
+- **Learning Mode**:
+  - Explain why suggestions matter.
+  - Offer learning links and examples.
+
+---
+
+## 🔀 Git Integration Commands
+
+### Branch Commands
+
+- `list branches` → Show branches with last commit
+- `branch info <branch>` → Show files/commits
+- `compare branches <branch1> <branch2>`
+
+### Review Utilities
+
+- `stage review fixes` → Stage review-related files
+- `create review branch` → Start a branch for fixes
+- `review status` → Track review resolution progress
+
+---
+
+## 🔎 Autocomplete Suggestions
+
+Trigger on partial input. Prioritize:
+
+1. **Commands**
+2. **Branch Names** (fuzzy match)
+3. **File Paths**
+4. **Review Types** (accessibility, security, performance)
+
+Example:
+```
+review feature/new-login with staging
+review bugfix/leak against develop
+quick review current
+```
+
+---
+
+## 🔌 Integration with Developer Tools
+
+### ESLint
+- Run on changed files
+- Map AI findings to rules
+- Suggest rule changes
+
+### Prettier
+- Autoformat before review
+- Detect style inconsistencies
+
+### Jest
+- Ensure test coverage for changes
+- Suggest missing test cases
+
+---
+
+## 🚀 Performance Optimizations
+
+- **Smart Caching**: Skip unchanged files.
+- **Incremental Reviews**: Focus on deltas and recent files.
+- **Learning History**: Adjust based on user behavior.
+
+---
+
+## ⚠️ Error Handling
+
+- **Branch Not Found**: Suggest similar names, offer `fetch`
+- **No Diffs Detected**: Check for stale branches
+- **Too Many Changes**: Warn + suggest scoping to smaller reviews
+
+---
+
+## 🔐 Security Considerations
+
+- Never modify git data
+- Sanitize all branch input
+- Ignore files in `.gitignore`
+- Never log secrets/tokens
+
+---
+
+## ⚙️ Customization Options
+
+Users can configure:
+
+- `set review focus [accessibility|performance|security]`
+- `set review strictness [strict|normal|relaxed]`
+- `set review format [detailed|summary|checklist]`
+- `exclude patterns [glob patterns]`
+
+---
+
+## 📚 Learning & Adaptation
+
+- Recognize team-wide code patterns
+- Suggest documentation updates
+- Track frequently accepted/rejected feedback
