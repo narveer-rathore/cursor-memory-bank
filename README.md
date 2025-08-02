@@ -1,2 +1,4 @@
 # cursor-memory-bank
-rules and instructions for AI agents in Cusor IDE 
+
+This repo represents files and structure for Cursor based AI Agents.
+
