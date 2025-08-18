@@ -1,4 +1,9 @@
-# Memory Bank System Documentation
+# Cursor - Memory Bank System
+
+## tldr;
+- Clone / Copy rules directory to your project
+- Type "initialize memory bank" in chat with agent
+- other commands "update memory bank"
 
 ## The Problem: AI Memory Loss
 
