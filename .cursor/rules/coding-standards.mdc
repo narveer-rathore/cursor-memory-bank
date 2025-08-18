@@ -1,18 +1,207 @@
 ---
 description: Coding standards and code review guidelines
-globs: 
+globs:
 alwaysApply: true
 ---
+
 **`Development Philosophy`**
-  - Write clean, maintainable, and scalable code
-  - Follow SOLID principles
-  - Prefer functional and declarative programming patterns over imperative
-  - Emphasize type safety and static analysis
-  - Practice component-driven development
+
+- Write clean, maintainable, and scalable code
+- Follow SOLID principles
+- Prefer functional and declarative programming patterns over imperative
+- Emphasize type safety and static analysis
+- Practice component-driven development
 
 ---
+
 **`Code Implementation Guidelines`**
- - Begin with step-by-step planning.
- - Write detailed pseudocode before implementation
- - Document component architecture and data flow
- - Consider edge cases and error scenarios
+
+- Begin with step-by-step planning.
+- Write detailed pseudocode before implementation
+- Document component architecture and data flow
+- Consider edge cases and error scenarios
+
+---
+
+**`React and TypeScript Best Practices`**
+
+- **`Naming Conventions`**
+  - Use PascalCase for
+    - Type definitions
+    - Interfaces
+  - Use cameCase for
+    - Variables
+    - Functions
+    - Methods
+    - Hooks
+    - Properties
+    - Props
+  - Use UPPERCASE for
+    - Environment variables
+    - Constants
+    - Global configurations
+
+- **`Component Architecture`**
+  - Always define React components using `const` and arrow functions instead of the `function`
+    keyword.
+  - Use functional components with TypeScript interfaces. Avoid class components
+  - Extract reusable logic into custom hooks
+  - Implement proper component composition
+  - Use React.memo() strategically for performance
+  - Implement proper cleanup in useEffect hooks
+
+- **`State Management`**
+  - Local State
+    - Use useState for component-level state
+    - Implement useReducer for complex state
+    - Use useContext for shared state
+    - Implement proper state initialization
+
+- **`FileCreations`**
+  - **`Component`**
+    - All components must be created inside the `src/components` directory.
+    - Each component should have its own folder, named after the component (e.g., Button for a
+      Button component).
+    - Inside the component’s folder, include a CSS module file named in the format
+      `ComponentName.module.css (e.g., Button.module.css)`.
+    - The CSS module file should reside in the same folder as the component.
+    - This structure ensures clear organization and consistent styling for all components.
+    - Each component’s folder should contain an `index.ts` file that re-exports the component and
+      any related files.
+    - This structure ensures that components are organized and can be easily imported through the
+      `index.ts` re-export.
+
+  - **`Custom Hooks`**
+    - All custom hooks for components must be created inside the `src/hooks` directory.
+    - Each component’s custom hooks should be placed in a subfolder named after the component (e.g.,
+      `Button` for hooks related to the Button component).
+    - Each component’s hooks folder should contain an `index.ts` file that re-exports the hooks for
+      that component.
+    - This structure ensures that hooks are organized by component and are easily accessible through
+      the `index.ts` re-export.
+
+  - **`Utils`**
+    - All utility files should be created inside the `src/utils` directory.
+    - This structure ensures that all utility functions are centralized and easy to locate.
+
+- **`React Performance Optimization`**
+  - Use useCallback for memoizing callback functions
+  - Implement useMemo for expensive computations
+  - Avoid inline function definitions in JSX
+  - Implement code splitting using dynamic imports
+  - Implement proper key props in lists (avoid using index as key)
+
+- **`Type Safety with Interfaces/Types`**
+  - Define all props, state, and context values with TypeScript interfaces/types. Avoid `any` and
+    use generics for reusable logic.
+  - Use TypeScript's strict mode. Never use `any`. Prefer `unknown` or explicit types.
+
+- **`Organized Code Structure`**
+  - Imports at the top (see order below)
+  - Component definition
+  - Props/state/interfaces
+  - Hooks and event handlers
+  - Render logic
+  - Export
+
+---
+
+- **`Accessibility (a11y)`**
+  - Use semantic HTML for meaningful structure.
+  - Apply accurate ARIA attributes where needed.
+  - Ensure full keyboard navigation support.
+  - Manage focus order and visibility effectively.
+  - Follow a logical heading hierarchy.
+  - Make all interactive elements accessible.
+  - Provide clear and accessible error feedback.
+
+---
+
+- **`Security`**
+  - Implement input sanitization to prevent XSS attacks.
+  - Use DOMPurify for sanitizing HTML content.
+
+---
+
+- **`Optional Chaining & Nullish Coalescing`**
+  - Use `?.` and `??` to handle null/undefined values safely.
+
+---
+
+- **`Code Style`**
+  - Use single quotes (`'`) for strings (enforced by Prettier).
+  - 2-space indentation (enforced by Prettier).
+  - No trailing whitespace or unused variables (enforced by ESLint/Prettier).
+  - Prefer `const` for constants and immutable variables.
+  - Use template literals for string interpolation.
+  - Always use strict equality (===) instead of loose equality (==)
+  - Add space after commas
+  - Keep else statements on the same line as closing curly braces
+  - Use curly braces for multi-line if statements
+  - Use trailing commas in multiline object/array literals
+
+---
+
+- **`Project-Specific React Guidelines`**
+  - **`React Router v6`**:
+    - Use `Routes` and `Route` for routing.
+    - Use `useNavigate`, `useParams`, and `useLocation` hooks.
+
+  - **`CSS Modules`**:
+    - Use `.module.scss` for component styles.
+    - Import styles as modules: `import styles from './Button.module.scss'`.
+
+  - **`Accessibility`**:
+    - Use semantic HTML and ARIA attributes.
+    - Use Spectrum components where possible for consistent accessibility.
+
+  - **`Image Optimization`**:
+    - Use `loading="lazy"` for images.
+
+  - **`Error Boundaries`**:
+    - Use error boundaries for critical UI sections.
+
+  - **`Code Splitting`**:
+    - Use `React.lazy` and `Suspense` for lazy loading components.
+
+---
+
+- **`Import Order`**
+  - React and core libraries (`react`, `react-dom`)
+  - Third-party libraries (`react-router-dom`, etc.)
+  - Application-level imports (contexts, services)
+  - Component imports
+  - Style imports
+  - Relative path imports
+
+- `**Error Handling and Validation**`
+  - Use try/catch in async functions and services.
+  - Use custom error types or error boundaries for UI errors.
+
+- **`Security Best Practices`**
+  - Avoid `dangerouslySetInnerHTML`. If needed, sanitize with `dompurify`.
+  - Sanitize all dynamic content.
+
+- **Core Principles**
+  - Use React context and hooks for shared state and dependency injection.
+  - Write reusable, modular code that aligns with project and React best practices.
+  - Continuously optimize for Web Vitals (LCP, INP, CLS).
+
+- **Documentation**
+  - Use JSDoc for documentation
+  - Document all public functions, classes, methods, and interfaces
+  - Add examples when appropriate
+  - Use complete sentences with proper punctuation
+  - Keep descriptions clear and concise
+  - Use proper markdown formatting
+  - Use proper code blocks
+  - Use proper links
+  - Use proper headings
+  - Use proper lists
+
+- **`Reference`**
+
+Refer to [React's official documentation](https://react.dev/learn), and your
+project's codebase for best practices.
+
+---
