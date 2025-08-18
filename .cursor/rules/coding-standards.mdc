@@ -16,6 +16,3 @@ alwaysApply: true
  - Write detailed pseudocode before implementation
  - Document component architecture and data flow
  - Consider edge cases and error scenarios
-
-
-other rules and coding guidelines here...
