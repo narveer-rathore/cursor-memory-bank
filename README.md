@@ -1,6 +1,6 @@
 # Cursor - Memory Bank System
 
-## tldr;
+## tl;dr
 - Clone / Copy rules directory to your project
 - Type "initialize memory bank" in chat with agent
 - other commands "update memory bank"
